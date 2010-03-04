@@ -1,3 +1,4 @@
+AddDefaultCharset utf-8
 # Turn on URL rewriting
 RewriteEngine On
 RewriteCond %{REQUEST_FILENAME} !-f

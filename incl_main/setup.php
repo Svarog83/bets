@@ -7,7 +7,7 @@ if( function_exists('date_default_timezone_set') )
     
 setlocale(LC_TIME, 'ru_RU.utf8');
     
-if( $_SERVER['HTTP_HOST'] == 'www.mifi.ru' )
+if( $_SERVER['HTTP_HOST'] == 'www.bets.ru' )
 {   
 	$local_server		= true;
 }
@@ -16,7 +16,7 @@ else
 	$local_server = false;
 }
 
-$setup_secret_word = 'it_is_impossible_to_guess';
+$setup_secret_word = 'you_never_guess_it';
 $setup_timeout = 86400 * 10; //10 days
 $setup_cache_folder = $_SERVER['DOCUMENT_ROOT'] . '/cache/';
 
@@ -49,15 +49,15 @@ $LangArr = array(
 
 if( $local_server )
 {
-	$www_main			= 'mifi.ru';
-	$www_main_full		= 'http://www.mifi.ru';
-	$real_www			= 'http://mifi.ru';
+	$www_main			= 'bets.ru';
+	$www_main_full		= 'http://www.bets.ru';
+	$real_www			= 'http://bets.ru';
 }
 else
 {
-	$www_main			= 'www.fcmifi.ru';
-	$www_main_full		= 'http://www.fcmifi.ru';
-	$real_www			= 'http://www.fcmifi.ru';
+	$www_main			= 'www.fcbets.ru';
+	$www_main_full		= 'http://www.fcbets.ru';
+	$real_www			= 'http://www.fcbets.ru';
 }
 
 ////////////////////////////////////////////////////////////////////////
@@ -66,7 +66,7 @@ else
 if( $local_server )
 {
 	$db_host_name_main	= 'localhost';
-	$db_name_main		= 'mifi';
+	$db_name_main		= 'bets';
 	$db_user_name_main	= 'root';
 	$db_password_main	= '';
 
@@ -95,7 +95,7 @@ if ( !function_exists( 'eu' ) )
 		$admin_flag = true;
 
 
-		$t =  '<span style="color:red;"><b>SQL_Error</b>:</span><br>file: <b>' .
+		$t =  '<span style="color:#ff0000;"><b>SQL_Error</b>:</span><br>file: <b>' .
 $a .		'</b><br> line: <b>'.
 
 		$b .
@@ -108,7 +108,7 @@ $a .		'</b><br> line: <b>'.
 		mysql_error().
 		'<br>' ;
 		
-		$tt = '<span style="color:red;"><hr style="color:red">Sorry, the script was stopped for the MySQL error!!<br>Please, be patient - Mail was sent to Administrators and the Error will be fixed ASAP<br>You will be informed about this<b></b><hr style="color:red"></span>';
+		$tt = '<span style="color:red;"><hr style="color:#ff0000">Sorry, the script was stopped for the MySQL error!!<br>Please, be patient - Mail was sent to Administrators and the Error will be fixed ASAP<br>You will be informed about this<b></b><hr style="color:#ff0000"></span>';
 
 		if( $admin_flag || $local_server )
 		{
@@ -250,7 +250,7 @@ POST --------------
 GET ---------------
 '.
 
-            $tmp_get
+             print_r( $_GET )
 
 			.'
 Time---------------
