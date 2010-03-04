@@ -1,0 +1,3 @@
+<?
+$TeamsArr  = getTeams();
+    

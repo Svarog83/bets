@@ -1,0 +1,82 @@
+/* 
+Описание и инструкция: 
+Пишем СВЕРХУ все изменения в БД - что, кто, описание функциональности поля   
+*/
+
+########################################################################################
+########################################################################################
+##  Изменил в DB:	   SV 2009-10-05
+##  Изменил на сервере:	   SV 2009-10-05
+
+CREATE TABLE `mifi`.`news` (
+`news_id` INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY COMMENT 'Auto increment ID',
+`news_date` DATETIME NOT NULL COMMENT 'Дата новости',
+`news_text` TEXT NOT NULL COMMENT 'Текст новости'
+) ENGINE = MYISAM 
+########################################################################################
+########################################################################################
+##  Изменил в DB:	   SV 2008-08-25
+##  Изменил на сервере:	   SV 2008-08-25
+
+ALTER TABLE `game` ADD `g_result` VARCHAR( 10 ) NOT NULL COMMENT 'Результат' AFTER `g_remarks` ;
+
+CREATE TABLE `mifi`.`email` (
+`em_id` INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY COMMENT 'Auto increment ID',
+`em_game` INT UNSIGNED NOT NULL COMMENT 'Game ID',
+`em_user` INT UNSIGNED NOT NULL COMMENT 'User id',
+INDEX ( `em_game` , `em_user` ) 
+) ENGINE = MYISAM COMMENT = 'Хранит инфу, кому были отправлены сообщения' 
+
+CREATE TABLE `user` (
+`user_id` INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY COMMENT 'User''s autoincrement ID',
+`user_login` VARCHAR( 32 ) NOT NULL COMMENT 'Логин',
+`user_pwd` VARCHAR( 32 ) NOT NULL COMMENT 'Пароль Хранится в зашифрованном виде',
+`user_state` CHAR( 1 ) NOT NULL COMMENT 'Статус (A – активен, B- заблокирован)',
+`user_state_dtm` DATE NOT NULL COMMENT 'Дата-время изменения статуса',
+`user_role` VARCHAR( 10 ) NOT NULL COMMENT 'Роль юзера (adm-админ, svisor - супервайзер, user -пользователь), [role->role_name]',
+`user_supervisor` INT UNSIGNED NOT NULL COMMENT 'Проставляется id супервайзера',
+`user_login_dtm` DATETIME NOT NULL COMMENT 'Время последнего входа. ',
+UNIQUE (
+`user_login` 
+)
+) ENGINE = MYISAM COMMENT = 'Таблица пользователей';
+
+ALTER TABLE `user` ADD `user_create_dtm` DATETIME NOT NULL COMMENT 'Дата-время заведения в системе' AFTER `user_pwd` ;
+
+
+CREATE TABLE `role` (
+`role_name` VARCHAR( 10 ) NOT NULL COMMENT 'Имя роли',
+`role_description` VARCHAR( 255 ) NOT NULL COMMENT 'Описание роли',
+PRIMARY KEY ( `role_name` ) 
+) ENGINE = MYISAM COMMENT = 'Хранит информацию о возможных уровнях доступа' ;
+
+CREATE TABLE `mode` (
+`mode_name` VARCHAR( 10 ) NOT NULL COMMENT 'Имя режима (move, stop, park)',
+`mode_description` VARCHAR( 255 ) NOT NULL COMMENT 'Описание режима',
+PRIMARY KEY ( `mode_name` ) 
+) ENGINE = MYISAM COMMENT = 'Хранит информацию о режимах' ;
+
+CREATE TABLE `device` (
+`dev_id` INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY COMMENT 'Auto increment ID',
+`dev_imei` VARCHAR( 32 ) NOT NULL COMMENT 'IMEI устройства',
+`dev_state` CHAR( 1 ) NOT NULL COMMENT 'Статус устройства (A - активно, B - заблокировано)',
+`dev_create_dtm` DATETIME NOT NULL COMMENT 'Дата-время заведения в системе',
+`dev_state_dtm` DATETIME NOT NULL COMMENT 'Дата-время изменения статуса',
+`dev_sess_id` BIGINT UNSIGNED NOT NULL COMMENT 'Текущий номер сессии',
+`dev_mode` VARCHAR( 10 ) NOT NULL COMMENT 'Текущее состояние (move – движется, stop –стоит, park - запарковано)',
+UNIQUE (
+`dev_imei` 
+)
+) ENGINE = MYISAM COMMENT = 'Таблица устройств';
+
+CREATE TABLE `user_device` (
+`ud_id` INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY COMMENT 'Auto increment ID',
+`ud_user_id` INT UNSIGNED NOT NULL COMMENT 'ID пользователя',
+`ud_device_id` INT UNSIGNED NOT NULL COMMENT 'ID устройсва',
+`ud_alias` VARCHAR( 32 ) NOT NULL COMMENT 'Пользовательское наименование устройства'
+) ENGINE = MYISAM COMMENT = 'Таблица для связки пользователей и устройств' ;
+
+ALTER TABLE `user` CHANGE `user_state_dtm` `user_state_dtm` DATETIME NOT NULL COMMENT 'Дата-время изменения статуса' ;
+
+########################################################################################
+########################################################################################
