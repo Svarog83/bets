@@ -18,8 +18,8 @@
 				<table cellpadding="2" cellspacing="2" border="1" width="100%">
 				<tr>
 					<td>No</td>
-					<td>Ком. 1</td>
-                    <td>Ком. 2</td>
+					<td>Команда 1</td>
+                    <td>Команда 2</td>
 					<td>Дата</td>
 					<td>Комментарии</td>
 					<td>Результат</td>
