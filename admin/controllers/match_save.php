@@ -4,9 +4,19 @@ $error_message  = array();
 $select_game 	= ( isset ( $select_game ) ? intval( $select_game ) : 0 );
 $edit_flag 	= ( $select_game ? 1 : 0 );
 
-if( !$g_team )
+if( !$g_tour )
 {
-	$error_message[] = 'Надо указать противника';
+	$error_message[] = 'Надо выбрать тур';
+}
+
+if( !$g_team1 )
+{
+	$error_message[] = 'Надо указать команду1';
+}
+
+if( !$g_team2 )
+{
+	$error_message[] = 'Надо указать команду2';
 }
 
 $year = date ( "Y", strtotime( $g_date_time ) );
@@ -26,7 +36,9 @@ if ( !count ( $error_message ) )
 	"
 	game
 		SET
-	g_team 				= '$g_team',
+	g_tour 			    = '$g_tour',
+	g_team1 			= '$g_team1',
+	g_team2 			= '$g_team2',
 	g_date_time			= '$g_date_time',
 	g_remarks 			= '$g_remarks',
 	g_result 			= '$g_result'

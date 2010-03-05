@@ -10,18 +10,57 @@
 <table width="90%" border="0" cellpadding="2" cellspacing="2">
 
 <tr>
-<td>Соперник</td>
+<td style="white-space:nowrap;">Тур</td>
+<td>
+<?
+
+$arr_tours = array();
+for ( $i = 1; $i < 31; $i++ )
+    $arr_tours[$i] = $i;
+
+
+$arr = array();
+$arr['field_name'] 		  	= 'g_tour';
+$arr['onchange']   		  	= 'self.focus()';
+$arr['show_select_title'] 	= 'Тур';
+$arr['selected_value'] 		= isset ( $MatchArr['g_tour'] ) ? $MatchArr['g_tour']: ( isset( $S_TOUR ) ? $S_TOUR : '' );
+$arr['select_values'] 		= $arr_tours;
+
+echo PrepareSelect( $arr );
+?>
+</td>
+</tr>
+
+<tr>
+<td style="white-space:nowrap;">Команда 1</td>
 <td>
 <? 
 
 $arr = array();
-$arr['field_name'] 		  	= 'g_team';
+$arr['field_name'] 		  	= 'g_team1';
 $arr['onchange']   		  	= 'self.focus()';
-$arr['show_select_title'] 	= 'Противник';
-$arr['selected_value'] 		= isset ( $MatchArr['g_team'] ) ? $MatchArr['g_team']: '';	
+$arr['show_select_title'] 	= 'Команда 1';
+$arr['selected_value'] 		= isset ( $MatchArr['g_team1'] ) ? $MatchArr['g_team1']: '';
 $arr['select_values'] 		= $TeamsArr;
 
 echo PrepareSelect( $arr ); 
+?>
+</td>
+</tr>
+
+<tr>
+<td>Команда 2</td>
+<td>
+<?
+
+$arr = array();
+$arr['field_name'] 		  	= 'g_team2';
+$arr['onchange']   		  	= 'self.focus()';
+$arr['show_select_title'] 	= 'Команда 2';
+$arr['selected_value'] 		= isset ( $MatchArr['g_team2'] ) ? $MatchArr['g_team2']: '';
+$arr['select_values'] 		= $TeamsArr;
+
+echo PrepareSelect( $arr );
 ?>
 </td>
 </tr>
@@ -65,8 +104,8 @@ echo PrepareSelect( $arr );
 <script type="text/javascript">
 Calendar.setup({
     inputField     :    "input_date",      // id of the input field
-    ifFormat       :    "%Y-%m-%d %H:%M:%S",       // format of the input field
-    showsTime      :    true,            // will display a time selector
+    ifFormat       :    "%Y-%m-%d",       // format of the input field
+    showsTime      :    false,            // will display a time selector
     button         :    "button_date",   // trigger for the calendar (button ID)
     singleClick    :    true,           // double-click mode
     timeFormat     :    "24",

@@ -2,83 +2,125 @@
 -- version 2.11.1
 -- http://www.phpmyadmin.net
 --
--- Хост: localhost
--- Время создания: Сен 02 2009 г., 19:46
--- Версия сервера: 5.0.18
--- Версия PHP: 5.2.3
+-- Host: localhost
+-- Generation Time: Mar 05, 2010 at 07:35 PM
+-- Server version: 5.0.18
+-- PHP Version: 5.2.3
 
 SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
 
 --
--- База данных: `mifi`
+-- Database: `bets`
 --
 
 -- --------------------------------------------------------
 
 --
--- Структура таблицы `game`
+-- Table structure for table `email`
+--
+
+DROP TABLE IF EXISTS `email`;
+CREATE TABLE IF NOT EXISTS `email` (
+  `em_id` int(10) unsigned NOT NULL auto_increment COMMENT 'Auto increment ID',
+  `em_game` int(10) unsigned NOT NULL COMMENT 'Game ID',
+  `em_user` int(10) unsigned NOT NULL COMMENT 'User id',
+  PRIMARY KEY  (`em_id`),
+  KEY `em_game` (`em_game`,`em_user`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1 COMMENT='РҐСЂР°РЅРёС‚ РёРЅС„Сѓ, РєРѕРјСѓ Р±С‹Р»Рё РѕС‚РїСЂР°РІР»РµРЅпїЅ' AUTO_INCREMENT=1 ;
+
+--
+-- Dumping data for table `email`
+--
+
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `game`
 --
 
 DROP TABLE IF EXISTS `game`;
-CREATE TABLE `game` (
+CREATE TABLE IF NOT EXISTS `game` (
   `g_id` int(10) unsigned NOT NULL auto_increment COMMENT 'Auto increment ID',
-  `g_team` int(10) unsigned NOT NULL COMMENT 'Team ID',
-  `g_date_time` datetime NOT NULL,
+  `g_tour` tinyint(3) unsigned NOT NULL COMMENT 'Tour number',
+  `g_team1` int(10) unsigned NOT NULL COMMENT 'Home team',
+  `g_team2` int(10) unsigned NOT NULL COMMENT 'Team ID',
+  `g_date_time` date NOT NULL,
   `g_remarks` text NOT NULL,
+  `g_result` varchar(10) NOT NULL COMMENT 'Р РµР·СѓР»СЊС‚Р°С‚',
   PRIMARY KEY  (`g_id`),
-  KEY `m_team` (`g_team`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='Matches schedule' AUTO_INCREMENT=3 ;
+  KEY `m_team` (`g_team2`),
+  KEY `g_team1` (`g_team1`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='Matches schedule' AUTO_INCREMENT=7 ;
 
 --
--- Дамп данных таблицы `game`
+-- Dumping data for table `game`
 --
 
-INSERT INTO `game` (`g_id`, `g_team`, `g_date_time`, `g_remarks`) VALUES
-(1, 1, '2009-09-05 10:00:00', 'Очень важно'),
-(2, 3, '2009-09-06 13:45:00', 'Супер дерби! Всем быть!');
+INSERT INTO `game` (`g_id`, `g_tour`, `g_team1`, `g_team2`, `g_date_time`, `g_remarks`, `g_result`) VALUES
+(1, 1, 5, 12, '2010-03-12', '', ''),
+(2, 2, 12, 3, '2010-03-05', '', ''),
+(3, 1, 2, 7, '2010-03-13', '', ''),
+(4, 1, 9, 3, '2010-03-13', '', ''),
+(5, 1, 1, 4, '2010-03-13', '', ''),
+(6, 1, 13, 8, '2010-03-13', '', '');
 
 -- --------------------------------------------------------
 
 --
--- Структура таблицы `game_user_link`
+-- Table structure for table `game_user_link`
 --
 
 DROP TABLE IF EXISTS `game_user_link`;
-CREATE TABLE `game_user_link` (
+CREATE TABLE IF NOT EXISTS `game_user_link` (
   `gul_id` int(10) unsigned NOT NULL auto_increment COMMENT 'Auto increment ID',
   `gul_user` int(10) unsigned NOT NULL COMMENT 'User id',
   `gul_game` int(10) unsigned NOT NULL COMMENT 'Game ID',
-  `gul_go` tinyint(3) unsigned NOT NULL COMMENT 'Флаг, показывает, что человек идет',
-  `gul_remarks` varchar(255) NOT NULL COMMENT 'Комментарии от пользователя',
+  `gul_go` tinyint(3) unsigned NOT NULL COMMENT 'Р¤Р»Р°Рі, РїРѕРєР°Р·С‹РІР°РµС‚, С‡С‚Рѕ С‡РµР»РѕРІРµРє РёРґРµС‚',
+  `gul_remarks` varchar(255) NOT NULL COMMENT 'РљРѕРјРјРµРЅС‚Р°СЂРёРё РѕС‚ РїРѕР»СЊР·РѕРІР°С‚РµР»СЏ',
   PRIMARY KEY  (`gul_id`),
   KEY `gul_user` (`gul_user`,`gul_game`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='Связь игроков с играми' AUTO_INCREMENT=38 ;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='РЎРІСЏР·СЊ РёРіСЂРѕРєРѕРІ СЃ РёРіСЂР°РјРё' AUTO_INCREMENT=1 ;
 
 --
--- Дамп данных таблицы `game_user_link`
+-- Dumping data for table `game_user_link`
 --
 
-INSERT INTO `game_user_link` (`gul_id`, `gul_user`, `gul_game`, `gul_go`, `gul_remarks`) VALUES
-(35, 1, 1, 0, 'Поменял Ветко'),
-(36, 2, 1, 0, 'Поменял Ветко'),
-(16, 1, 2, 1, 'Поменял Ветко'),
-(37, 2, 2, 0, 'Поменял Ветко');
 
 -- --------------------------------------------------------
 
 --
--- Структура таблицы `role`
+-- Table structure for table `news`
+--
+
+DROP TABLE IF EXISTS `news`;
+CREATE TABLE IF NOT EXISTS `news` (
+  `news_id` int(10) unsigned NOT NULL auto_increment COMMENT 'Auto increment ID',
+  `news_date` datetime NOT NULL COMMENT 'Р”Р°С‚Р° РЅРѕРІРѕСЃС‚Рё',
+  `news_text` text NOT NULL COMMENT 'РўРµРєСЃС‚ РЅРѕРІРѕСЃС‚Рё',
+  PRIMARY KEY  (`news_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+--
+-- Dumping data for table `news`
+--
+
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `role`
 --
 
 DROP TABLE IF EXISTS `role`;
-CREATE TABLE `role` (
-  `role_name` varchar(10) NOT NULL COMMENT 'Имя роли',
-  `role_description` varchar(255) NOT NULL COMMENT 'Описание роли',
+CREATE TABLE IF NOT EXISTS `role` (
+  `role_name` varchar(10) NOT NULL COMMENT 'РРјСЏ СЂРѕР»Рё',
+  `role_description` varchar(255) NOT NULL COMMENT 'РћРїРёСЃР°РЅРёРµ СЂРѕР»Рё',
   PRIMARY KEY  (`role_name`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='Хранит информацию о возможных ур';
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='РҐСЂР°РЅРёС‚ РёРЅС„РѕСЂРјР°С†РёСЋ Рѕ РІРѕР·РјРѕР¶РЅС‹С… СѓСЂ';
 
 --
--- Дамп данных таблицы `role`
+-- Dumping data for table `role`
 --
 
 INSERT INTO `role` (`role_name`, `role_description`) VALUES
@@ -88,67 +130,89 @@ INSERT INTO `role` (`role_name`, `role_description`) VALUES
 -- --------------------------------------------------------
 
 --
--- Структура таблицы `team`
+-- Table structure for table `setting`
 --
 
-DROP TABLE IF EXISTS `team`;
-CREATE TABLE `team` (
-  `t_id` int(10) unsigned NOT NULL auto_increment COMMENT 'Auto increment ID',
-  `t_name` varchar(255) NOT NULL COMMENT 'Team name',
-  PRIMARY KEY  (`t_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=18 ;
+DROP TABLE IF EXISTS `setting`;
+CREATE TABLE IF NOT EXISTS `setting` (
+  `set_id` mediumint(8) unsigned NOT NULL auto_increment COMMENT 'Setting ID',
+  `sett_name` varchar(20) NOT NULL COMMENT 'Name of the option',
+  `sett_value` varchar(255) NOT NULL COMMENT 'Option Value',
+  PRIMARY KEY  (`set_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='Different options' AUTO_INCREMENT=2 ;
 
 --
--- Дамп данных таблицы `team`
+-- Dumping data for table `setting`
 --
 
-INSERT INTO `team` (`t_id`, `t_name`) VALUES
-(1, 'Аспирант-2'),
-(2, 'Спарта'),
-(3, 'Телеги'),
-(4, 'Конфианза'),
-(5, 'Чертаново'),
-(6, 'МюПИ'),
-(7, 'Хамовники'),
-(8, 'Северсталь'),
-(9, 'Вега'),
-(10, 'Сев. Бутово'),
-(11, 'Галактика'),
-(12, 'Кран Юнайтед'),
-(13, 'Вива-ла'),
-(14, 'ХФК'),
-(15, 'Лимантис'),
-(16, 'Феникс'),
-(17, 'Штурм');
+INSERT INTO `setting` (`set_id`, `sett_name`, `sett_value`) VALUES
+(1, 'S_TOUR', '1');
 
 -- --------------------------------------------------------
 
 --
--- Структура таблицы `user`
+-- Table structure for table `team`
+--
+
+DROP TABLE IF EXISTS `team`;
+CREATE TABLE IF NOT EXISTS `team` (
+  `t_id` int(10) unsigned NOT NULL auto_increment COMMENT 'Auto increment ID',
+  `t_name` varchar(255) NOT NULL COMMENT 'Team name',
+  PRIMARY KEY  (`t_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=17 ;
+
+--
+-- Dumping data for table `team`
+--
+
+INSERT INTO `team` (`t_id`, `t_name`) VALUES
+(1, 'Р СѓР±РёРЅ'),
+(2, 'РЎРїР°СЂС‚Р°Рє'),
+(3, 'Р—РµРЅРёС‚'),
+(4, 'Р›РѕРєРѕРјРѕС‚РёРІ'),
+(5, 'Р¦РЎРљРђ'),
+(6, 'РЎР°С‚СѓСЂРЅ'),
+(7, 'Р”РёРЅР°РјРѕ'),
+(8, 'РўРѕРјСЊ'),
+(9, 'РљСЂС‹Р»СЊСЏ РЎРѕРІРµС‚РѕРІ'),
+(10, 'РЎРїР°СЂС‚Р°Рє РќС‡'),
+(11, 'РўРµСЂРµРє'),
+(12, 'РђРјРєР°СЂ'),
+(13, 'Р РѕСЃС‚РѕРІ'),
+(14, 'РђРЅР¶Рё'),
+(15, 'РЎРёР±РёСЂСЊ'),
+(16, 'РђР»Р°РЅРёСЏ');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `user`
 --
 
 DROP TABLE IF EXISTS `user`;
-CREATE TABLE `user` (
+CREATE TABLE IF NOT EXISTS `user` (
   `user_id` int(10) unsigned NOT NULL auto_increment COMMENT 'User''s autoincrement ID',
   `user_fam` varchar(255) NOT NULL COMMENT 'User''s family',
   `user_name` varchar(255) NOT NULL COMMENT 'User''s name',
   `user_email` varchar(255) NOT NULL COMMENT 'User''s email',
-  `user_login` varchar(32) NOT NULL COMMENT 'Логин',
-  `user_pwd` varchar(32) NOT NULL COMMENT 'Пароль Хранится в зашифрованном виде',
-  `user_create_dtm` datetime NOT NULL COMMENT 'Дата-время заведения в системе',
-  `user_state` char(1) NOT NULL COMMENT 'Статус (A – активен, B- заблокирован)',
-  `user_state_dtm` datetime NOT NULL COMMENT 'Дата-время изменения статуса',
-  `user_role` varchar(10) NOT NULL COMMENT 'Роль юзера (adm-админ, svisor - супервайзер, user -пользователь), [role->role_name]',
-  `user_supervisor` int(10) unsigned NOT NULL COMMENT 'Проставляется id супервайзера',
-  `user_login_dtm` datetime NOT NULL COMMENT 'Время последнего входа. ',
+  `user_login` varchar(32) NOT NULL COMMENT 'Р›РѕРіРёРЅ',
+  `user_pwd` varchar(32) NOT NULL COMMENT 'РџР°СЂРѕР»СЊ РҐСЂР°РЅРёС‚СЃСЏ РІ Р·Р°С€РёС„СЂРѕРІР°РЅРЅРѕРј РІРёРґРµ',
+  `user_create_dtm` datetime NOT NULL COMMENT 'Р”Р°С‚Р°-РІСЂРµРјСЏ Р·Р°РІРµРґРµРЅРёСЏ РІ СЃРёСЃС‚РµРјРµ',
+  `user_state` char(1) NOT NULL COMMENT 'РЎС‚Р°С‚СѓСЃ (A вЂ“ Р°РєС‚РёРІРµРЅ, B- Р·Р°Р±Р»РѕРєРёСЂРѕРІР°РЅ)',
+  `user_state_dtm` datetime NOT NULL COMMENT 'Р”Р°С‚Р°-РІСЂРµРјСЏ РёР·РјРµРЅРµРЅРёСЏ СЃС‚Р°С‚СѓСЃР°',
+  `user_role` varchar(10) NOT NULL COMMENT 'Р РѕР»СЊ СЋР·РµСЂР° (adm-Р°РґРјРёРЅ, svisor - СЃСѓРїРµСЂРІР°Р№Р·РµСЂ, user -РїРѕР»СЊР·РѕРІР°С‚РµР»СЊ), [role->role_name]',
+  `user_supervisor` int(10) unsigned NOT NULL COMMENT 'РџСЂРѕСЃС‚Р°РІР»СЏРµС‚СЃСЏ id СЃСѓРїРµСЂРІР°Р№Р·РµСЂР°',
+  `user_login_dtm` datetime NOT NULL COMMENT 'Р’СЂРµРјСЏ РїРѕСЃР»РµРґРЅРµРіРѕ РІС…РѕРґР°. ',
   PRIMARY KEY  (`user_id`),
   UNIQUE KEY `user_login` (`user_login`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=19 ;
 
 --
--- Дамп данных таблицы `user`
+-- Dumping data for table `user`
 --
 
 INSERT INTO `user` (`user_id`, `user_fam`, `user_name`, `user_email`, `user_login`, `user_pwd`, `user_create_dtm`, `user_state`, `user_state_dtm`, `user_role`, `user_supervisor`, `user_login_dtm`) VALUES
-(1, 'Ветко', 'Сергей', 'sergey@vetko.net', 'Svarog', 'a518307d11516c8d2163b52946357c5f', '2009-09-01 18:21:17', 'a', '2009-09-01 18:21:17', 'adm', 0, '2008-08-26 11:08:02'),
-(2, 'Романов', 'Сергей', 'segenadich@rambler.ru', 'test', '', '2009-09-01 18:22:00', 'a', '2009-09-02 19:39:05', 'user', 0, '0000-00-00 00:00:00');
+(1, 'Р’РµС‚РєРѕ', 'РЎРµСЂРіРµР№', 'sergey@vetko.net', 'Svarog', 'a518307d11516c8d2163b52946357c5f', '2009-09-01 18:21:17', 'a', '2009-09-01 18:21:17', 'adm', 0, '2010-03-05 17:47:14'),
+(18, 'РўРѕРјР°СЂРѕРІ', 'РљРёСЂРёР»Р»', 'k.tomarov@itgr.ru', 'kirill', '9e3669d19b675bd57058fd4664205d2a', '2010-03-05 15:00:59', 'a', '2010-03-05 15:00:59', 'user', 0, '0000-00-00 00:00:00'),
+(17, 'Р–РґР°РЅРѕРІ', 'РђРЅС‚РѕРЅ', 'A.Zhdanov@itgr.ru', 'Anton', '9e3669d19b675bd57058fd4664205d2a', '2010-03-05 15:00:39', 'a', '2010-03-05 15:00:39', 'user', 0, '0000-00-00 00:00:00'),
+(16, 'РђРЅРґСЂРёСЏРЅРѕРІ', 'РР»СЊСЏ', 'aist@pochta.ru', 'andriyanov', '9e3669d19b675bd57058fd4664205d2a', '2010-03-05 17:46:47', 'a', '2010-03-05 17:46:47', 'adm', 0, '2010-03-05 15:02:37');

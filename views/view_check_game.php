@@ -17,7 +17,7 @@
 				<? if ( count ( $error_message ) ): ?>
 				<?= implode ( '<br>', $error_message ); ?>
 				<? else: ?>
-				Игра с командой <b>"<?= getTeamName( $GA['g_team']) ?>"</b>.<br>
+				Игра с командой <b>"<?= getTeamName( $GA['g_team1']) ?>"</b>.<br>
 			    Начало: <b><?= MatchTime( $GA['g_date_time'] ) ?></b>
 			    
 			    <? if ( $GA['g_remarks'] ): ?>

@@ -1,5 +1,5 @@
     <li>
-		<h2>Ближайшие матчи</h2>
+		<h2>Тур <?php echo $S_TOUR?></h2>
 		<ul>
 			<? foreach ( $cMatchesArr AS $row ): ?>
 			<li>
@@ -7,7 +7,7 @@
 				<a href="/check_game/<?= $row['g_id'] ?>/" title="Отметиться на игру">
 				<? endif;?>
 				
-				<?= getTeamName( $row['g_team'] ) . ' ' . date ( "Y-m-d H:i", strtotime ( $row['g_date_time'] ) ) ?>
+				<?= getTeamName( $row['g_team1'] ) . ' VS ' . getTeamName( $row['g_team2'] ) .'  ' . $row['g_date_time']  ?>
 			
 				<? if ( isset ( $cMarksArr[$row['g_id']] ) && $cMarksArr[$row['g_id']]['gul_go'] ) : ?>
 				<img src="/icon/button.gif" title="Я буду!">

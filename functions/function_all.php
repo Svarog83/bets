@@ -373,3 +373,8 @@ function win2utf( $s )    {
    }
    return $t;
 }
+
+function ShortDate ( $date )
+{
+    return substr ( $date, 0, 10 );
+}

@@ -18,20 +18,28 @@
 				<table cellpadding="2" cellspacing="2" border="1" width="100%">
 				<tr>
 					<td>No</td>
-					<td>Противник</td>
+					<td>Ком. 1</td>
+                    <td>Ком. 2</td>
 					<td>Дата</td>
 					<td>Комментарии</td>
 					<td>Результат</td>
 				</tr>
 				
 				<? if ( !count ( $MatchesArr ) ):?>
-				<tr><td colspan="4">Матчей не найдено</td></tr>
+				<tr><td colspan="5">Матчей не найдено</td></tr>
 				<? else : ?>
-					<? foreach ( $MatchesArr AS $row ): ?>
+					<? $old_tour = 0; ?>
+                    <? foreach ( $MatchesArr AS $row ): ?>
+                    <? if ( $old_tour != $row['g_tour'] ):?>
+                    <tr><td colspan="6" style="font-weight:bold;">Тур <?php echo $row['g_tour']; ?></td></tr>
+                    <? $old_tour = $row['g_tour']; ?>
+                    <? endif; ?>
+
 					<? $i++ ?>
 					<tr>
 						<td><?= $i?></td>
-						<td><?= $TeamsArr[$row['g_team']]?></td>
+						<td><?= $TeamsArr[$row['g_team1']]?></td>
+                        <td><?= $TeamsArr[$row['g_team2']]?></td>
 						<td><?= $row['g_date_time']?></td>
 						<td>&nbsp;<?= $row['g_remarks']?></td>
 						<td>&nbsp;<?= $row['g_result']?></td>

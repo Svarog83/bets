@@ -1,6 +1,6 @@
 <?
 $cMatchesArr = array();
-$query = "SELECT * FROM game WHERE g_date_time >= '" . date ( "Y-m-d H:i:s" ) . "' ORDER BY g_date_time LIMIT 3";
+$query = "SELECT * FROM game WHERE g_tour = '" . $S_TOUR . "' ORDER BY g_date_time";
 $result = mysql_query( $query ) or eu( __FILE__, __LINE__, $query );
 while ( $row = mysql_fetch_array ( $result, MYSQL_ASSOC ) )
 	$cMatchesArr[] = $row;

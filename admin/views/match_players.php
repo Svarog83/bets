@@ -3,7 +3,7 @@
 <input type="hidden" name="select_game" value="<?= $select_game?>">
 
 <div class="head>">
-Матч против <b><?= getTeamName( $MatchArr['g_team'] )?></b>, который состоится <b><?= $MatchArr['g_date_time']?></b>:
+Матч против <b><?= getTeamName( $MatchArr['g_team1'] )?></b>, который состоится <b><?= $MatchArr['g_date_time']?></b>:
 </div>
 <br>
 <table width="90%" border="1" cellpadding="2" cellspacing="2">

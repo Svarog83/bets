@@ -3,9 +3,12 @@
 $query = "SELECT * FROM game WHERE ";
 
 if ( $select_team )
-	$query .= "g_team = '$select_team' && ";
+	$query .= "( g_team1 = '$select_team' || g_team2 = '$select_team' ) && ";
+
+if ( $select_tour )
+	$query .= " g_tour = '$select_tour' && ";
 	
-$query .= " 1 ORDER BY g_date_time";
+$query .= " 1 ORDER BY g_tour, g_date_time";
 
 $MatchesArr  = array();
 $result = mysql_query( $query ) or eu( __FILE__, __LINE__, $query );

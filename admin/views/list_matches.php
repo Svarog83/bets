@@ -32,6 +32,18 @@ function list_matches( )
 <form name="form" method="POST" id="form" enctype="multipart/form-data">
 <fieldset>
 
+Тур:
+<?
+
+$arr = array();
+$arr['field_name'] = 'select_tour';
+$arr['onchange']   = 'self.focus()';
+$arr['show_select_title'] = 'Select tour';
+$arr['select_values'] = $arr_tours;
+
+echo PrepareSelect( $arr );
+    ?>
+   &nbsp;&nbsp;
 Команда: 
 <? 
 
