@@ -1,9 +1,9 @@
-	<li>
+    <li>
 		<h2>Ближайшие матчи</h2>
 		<ul>
 			<? foreach ( $cMatchesArr AS $row ): ?>
 			<li>
-				<? if ( $user_authorized ): ?>
+				<? if ( $user_authorized && 0 ): ?>
 				<a href="/check_game/<?= $row['g_id'] ?>/" title="Отметиться на игру">
 				<? endif;?>
 				
@@ -17,7 +17,7 @@
 				<img src="/icon/exit.gif" title="Не иду">
 						<? endif; ?>
 			
-				<? if ( $user_authorized ): ?>
+				<? if ( $user_authorized && 0 ): ?>
 				</a>
 				<? endif;?>
 			</li>

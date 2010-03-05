@@ -55,9 +55,9 @@ if( $local_server )
 }
 else
 {
-	$www_main			= 'www.fcbets.ru';
-	$www_main_full		= 'http://www.fcbets.ru';
-	$real_www			= 'http://www.fcbets.ru';
+	$www_main			= 'bets.vetko.net';
+	$www_main_full		= 'http://bets.vetko.net';
+	$real_www			= 'http://bets.vetko.net';
 }
 
 ////////////////////////////////////////////////////////////////////////
@@ -73,9 +73,9 @@ if( $local_server )
 }
 else
 {
-	$db_host_name_main	= 'mysql1079.servage.net';
-	$db_name_main		= 'mifi2';
-	$db_user_name_main	= 'mifi2';
+	$db_host_name_main	= 'mysq1084.servage.net';
+	$db_name_main		= 'bets_site';
+	$db_user_name_main	= 'bets_site';
 	$db_password_main	= 'dtnjrhtc1';
 }
 
