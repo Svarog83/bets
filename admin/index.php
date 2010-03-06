@@ -46,6 +46,12 @@ $action['match_players']['view']  	= 'match_players.php';
 $action['email_send']['cont'] 		= 'email_send.php';
 $action['email_send']['view']  		= 'match_players.php';
 
+$action['settings']['cont'] 		= 'settings.php';
+$action['settings']['view']  		= 'settings.php';
+
+$action['save_settings']['cont'] 		= 'save_settings.php';
+$action['save_settings']['view']  		= 'settings.php';
+
 
 
 $controller = $action[$todo]['cont'];
@@ -57,7 +63,7 @@ if ( $controller && file_exists( $dir_controllers . $controller ) )
 $links_line = '<a href="/">Главная</a> | <a href="index.php">Игроки</a> | ';
 
 if ( $user_authorized )
-	$links_line .= '<a href="index.php?todo=list_matches">Матчи</a> | ';
+	$links_line .= '<a href="index.php?todo=list_matches">Матчи</a> | <a href="index.php?todo=settings">Настройки</a> |';
 
 $links_line .= '<a href="index.php?todo=exit">Выйти</a> | <br>';
 

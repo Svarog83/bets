@@ -267,10 +267,18 @@ function getTeams()
 
 function getTeamName( $team_id )
 {
+	global $TeamNameCache;
 	$team_id = (int)$team_id;
-	$query = "SELECT t_id, t_name FROM team WHERE t_id = '$team_id'";
-	$result = mysql_query( $query ) or eu( __FILE__, __LINE__, $query );
-	$row = mysql_fetch_array ( $result, MYSQL_ASSOC );
+	if ( !isset ( $TeamNameCache[$team_id] ) )
+	{
+		$query = "SELECT t_id, t_name FROM team WHERE t_id = '$team_id'";
+		$result = mysql_query( $query ) or eu( __FILE__, __LINE__, $query );
+		$row = mysql_fetch_array ( $result, MYSQL_ASSOC );
+
+		$TeamNameCache[$team_id] = $row;
+	}
+	else
+		$row = $TeamNameCache[$team_id];
 	   
 	return $row['t_name'];
 }
@@ -348,6 +356,27 @@ function end_cache( $file_name )
 	}
 	
 	return true;
+}
+
+function get_match_results ( $user_id )
+{
+	$MatchResults = array();
+	$query = "
+		SELECT
+	mr_game, mr_result
+		FROM
+	match_result
+		WHERE
+	mr_user = '" . (int)$user_id . "' &&
+	mr_activ = 'a'
+	";
+	$result = mysql_query( $query ) or eu( __FILE__, __LINE__, $query );
+	while ( $row = mysql_fetch_array( $result, MYSQL_ASSOC ) )
+	{
+		$MatchResults[$row['mr_game']] = $row['mr_result'];
+	}
+
+	return $MatchResults;
 }
 
 function win2utf( $s )    {

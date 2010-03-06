@@ -9,3 +9,4 @@ while ( $row = mysql_fetch_array( $result, MYSQL_ASSOC ) )
 }
 
 $TeamsArr = getTeams();
+$MatchResults = ( $user_authorized ? get_match_results ( $UA['user_id'] ) : array() );

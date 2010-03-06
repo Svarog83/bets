@@ -28,11 +28,11 @@ exit;
 
 @mysql_select_db( $db_name_main, $connect_main );
 
+$query = "SET NAMES 'utf8'";
+$result = @mysql_query( $query )  or eu( __FILE__, __LINE__, $query );
+
 $S_TOUR = 0;
 $query = "SELECT * FROM setting";
 $result = mysql_query( $query ) or eu( __FILE__, __LINE__, $query );
 while ( $row = mysql_fetch_array( $result, MYSQL_ASSOC ) )
     $$row['sett_name'] = $row['sett_value'];
-
-$query = "SET NAMES 'utf8'";
-$result = @mysql_query( $query )  or eu( __FILE__, __LINE__, $query ); 
