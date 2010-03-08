@@ -54,7 +54,7 @@
 							<td style="white-space:nowrap;"><?= $row['g_date_time']?></td>
 							<td>&nbsp;<?= $row['g_result']?></td>
 						<? if ( $user_authorized ): ?>
-							<td><input type="text" size="10" <?= $row['g_date_time'] == $setup_today ? 'readonly title="Скоро матч, ничего менять нельзя!" style="background-color: #C0C0C0;"' : '' ?> name="match_result[<?= $row['g_id']?>]" value="<?= isset ( $MatchResults[$row['g_id']] ) ? $MatchResults[$row['g_id']] : '' ?>"></td>
+							<td><input type="text" size="10" <?= $row['g_date_time'] <= $setup_today ? 'readonly title="Скоро матч, ничего менять нельзя!" style="background-color: #C0C0C0;"' : '' ?> name="match_result[<?= $row['g_id']?>]" value="<?= isset ( $MatchResults[$row['g_id']] ) ? $MatchResults[$row['g_id']] : '' ?>"></td>
 						<?endif;?>
 
 						</tr>

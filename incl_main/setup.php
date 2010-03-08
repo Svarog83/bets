@@ -74,7 +74,7 @@ if( $local_server )
 }
 else
 {
-	$db_host_name_main	= 'mysq1084.servage.net';
+	$db_host_name_main	= 'mysql1084.servage.net';
 	$db_name_main		= 'bets_site';
 	$db_user_name_main	= 'bets_site';
 	$db_password_main	= 'dtnjrhtc1';
