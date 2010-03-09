@@ -8,7 +8,7 @@ if ( $select_team )
 if ( $select_tour )
 	$query .= " g_tour = '$select_tour' && ";
 	
-$query .= " 1 ORDER BY g_tour, g_date_time";
+$query .= " 1 ORDER BY g_tour, g_date_time, g_id";
 
 $MatchesArr  = array();
 $result = mysql_query( $query ) or eu( __FILE__, __LINE__, $query );

@@ -1,4 +1,34 @@
 <? $component_name = 'navigation'; include( 'include_component.php' ); ?>
+
+<script src="http://code.jquery.com/jquery-1.4.2.min.js" type="text/javascript"></script>
+<script src="/javascripts/lib/jquery.hoverIntent.js" type="text/javascript"></script> <!-- optional -->
+<script src="/javascripts/jquery.cluetip.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+$(document).ready(function() {
+  $('a.tips').cluetip();
+});
+</script>
+<link rel="stylesheet" href="/css/jquery.cluetip.css" type="text/css" />
+
+<script language="JavaScript">
+<!--
+function SaveForm()
+{
+    var obj_check = document.getElementById( 'check_id' );
+    var confirmed = true;
+    if ( obj_check && obj_check.checked )
+    {
+        confirmed = confirm( 'Точно заблокировать ввод результатов за ' + obj_check.value + ' тур?' );
+    }
+
+    if ( confirmed )
+        document.form2.submit();
+}
+
+
+//-->
+</script>
 <!-- end header -->
 <div id="wrapper">
 	<!-- start page -->
@@ -11,7 +41,7 @@
 
 		<!-- start content -->
 		<div id="content">
-			 <form action="/save_bets/" method="post">
+			 <form action="/save_bets/" method="post" name="form2">
 			<div class="post">
 				<h1 class="title">Календарь</h1>
 
@@ -46,7 +76,6 @@
 					<? endif; ?>
 
 					<? $i++ ?>
-
 						<tr>
 							<td><?= $i?></td>
 							<td><?= $TeamsArr[$row['g_team1']]?></td>
@@ -54,7 +83,10 @@
 							<td style="white-space:nowrap;"><?= $row['g_date_time']?></td>
 							<td>&nbsp;<?= $row['g_result']?></td>
 						<? if ( $user_authorized ): ?>
-							<td><input type="text" size="10" <?= $row['g_date_time'] <= $setup_today ? 'readonly title="Скоро матч, ничего менять нельзя!" style="background-color: #C0C0C0;"' : '' ?> name="match_result[<?= $row['g_id']?>]" value="<?= isset ( $MatchResults[$row['g_id']] ) ? $MatchResults[$row['g_id']] : '' ?>"></td>
+							<td>
+                                <input type="text" size="4" <?= $row['readonly'] ? 'readonly title="' . $row['readonly'] . '" style="background-color: #C0C0C0;"' : '' ?> name="match_result[<?= $row['g_id']?>]" value="<?= isset ( $MatchResults[$row['g_id']] ) ? $MatchResults[$row['g_id']] : '' ?>">
+                                <a class="tips" href="/match_bets/<?= $row['g_id'] ?>/?ajax_flag=1" rel="/match_bets/<?= $row['g_id'] ?>/?ajax_flag=1">?</a>
+                            </td>
 						<?endif;?>
 
 						</tr>
@@ -62,12 +94,25 @@
 				<? endif; ?>
 
 					</table>
+                    <br>
+
+                    <? if ( $UA['user_last_tour'] ): ?>
+                    <div style="font-weight:bold;">
+                    Последний завершенный тур: <?= $UA['user_last_tour'] ?>
+                     </div>
+                    <? endif; ?>
+
+                    <? if ( $user_authorized ): ?>
+                        <? if ( $S_TOUR > $UA['user_last_tour'] ): ?>
+                        <input type="checkbox" id="check_id" name="checkbox_tour" value="<?= $S_TOUR ?>">Ввод результатов для тура #<?= $S_TOUR?> завершен<br>
+                        <? endif; ?>
+                     <input type="button" value="Save" onclick="SaveForm();">
+                    <?endif;?>
+
 
 				</div>
 			</div>
-			<? if ( $user_authorized ): ?>
-			 <input type="submit" value="Save"> 
-			<?endif;?>
+
 			</form>
 		</div>
 		<!-- end content -->

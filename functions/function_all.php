@@ -358,6 +358,24 @@ function end_cache( $file_name )
 	return true;
 }
 
+function CalculatePoints()
+{
+    $points = 0 ;
+    $real_result = explode( '-' , $real_result ) ;
+    $forecast = explode( '-' , $forecast ) ;
+    if( $real_result[0] > $real_result[1] && $forecast[0] > $forecast[1] ||
+        $real_result[0] == $real_result[1] && $forecast[0] == $forecast[1] ||
+        $real_result[0] < $real_result[1] && $forecast[0] < $forecast[1] )
+            $points = 2 ;
+    if( $real_result[0] == $forecast[0] )
+            $points += 1 ;
+    if( $real_result[1] == $forecast[1] )
+            $points += 1 ;
+    if( ( $real_result[0] - $real_result[1] ) == ( $forecast[0] - $forecast[1] ) )
+            $points += 1 ;
+    return $points;
+}
+
 function get_match_results ( $user_id )
 {
 	$MatchResults = array();

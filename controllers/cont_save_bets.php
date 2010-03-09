@@ -5,6 +5,14 @@ $MatchResults = get_match_results( $UA['user_id'] );
 
 $match_result = $_REQUEST['match_result'];
 
+$checkbox_tour = ( isset ( $checkbox_tour ) ? (int)$checkbox_tour : '' );
+
+if ( $checkbox_tour )
+{
+    $query = "UPDATE user SET user_last_tour = '$checkbox_tour' WHERE user_id = '{$UA['user_id']}'";
+    $result = mysql_query( $query ) or eu( __FILE__, __LINE__, $query );
+}
+
 if ( is_array ( $match_result ) && count ( $match_result ) )
 {
 	$MatchesArr = $query_arr = array();

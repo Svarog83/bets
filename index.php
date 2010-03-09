@@ -41,7 +41,9 @@ $view       = 'view_' . $todo . '.php';
 if ( $controller && file_exists( $dir_controllers . $controller ) )
     require_once( $dir_controllers . $controller );
 
-require_once( 'header.php' );
+$ajax_flag = isset( $ajax_flag ) ? true : false;
+if ( !$ajax_flag )
+    require_once( 'header.php' );
 
 //for debugging
 if ( $local_server )
@@ -56,5 +58,5 @@ require_once( $file_name );
 
 
 $time_exec 	= microtime( true ) - $setup_time_start;
-
-require_once( 'footer.php' );
+if ( !$ajax_flag )
+    require_once( 'footer.php' );
