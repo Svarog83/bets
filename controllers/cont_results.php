@@ -1,4 +1,5 @@
 <?
+if ( !checkRights ( array ( 'user' ) ) ) redirect( '/no_admission/' );
 //TODO Кеширование. Хранить сумму очков по турам, каждый раз не считать.
 $TeamsArr = getTeams();
 
