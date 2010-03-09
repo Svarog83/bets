@@ -26,12 +26,16 @@ $query = "
     SELECT
 user_name,
 user_fam,
-mr_result
+mr_result,
+user_last_tour,
+g_tour
     FROM
 match_result,
-user
+user,
+game
     WHERE
 mr_game = '$select_game' &&
+g_id = mr_game &&
 mr_user = user_id &&
 mr_activ = 'a' &&
 user_id != '{$UA['user_id']}'

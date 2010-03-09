@@ -1,7 +1,11 @@
 <?
-$query = "SELECT * FROM game WHERE 1 ORDER BY g_tour, g_date_time, g_id";
 
+
+$MatchResults = ( $user_authorized ? get_match_results ( $UA['user_id'] ) : array() );
+$all_entered = true;
 $MatchesArr  = array();
+
+$query = "SELECT * FROM game WHERE 1 ORDER BY g_tour, g_date_time, g_id";
 $result = mysql_query( $query ) or eu( __FILE__, __LINE__, $query );
 while ( $row = mysql_fetch_array( $result, MYSQL_ASSOC ) )
 {
@@ -12,8 +16,11 @@ while ( $row = mysql_fetch_array( $result, MYSQL_ASSOC ) )
    else
         $row['readonly'] = '';
 
+	if ( $row['g_tour'] == $S_TOUR && !$MatchResults[$row['g_id']] && !$row['readonly'] )
+		$all_entered = false;
+
     $MatchesArr[] = $row;
 }
 
 $TeamsArr = getTeams();
-$MatchResults = ( $user_authorized ? get_match_results ( $UA['user_id'] ) : array() );
+

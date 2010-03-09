@@ -103,12 +103,13 @@ function SaveForm()
                     <? endif; ?>
 
                     <? if ( $user_authorized ): ?>
-                        <? if ( $S_TOUR > $UA['user_last_tour'] ): ?>
+                        <? if ( $all_entered && $S_TOUR > $UA['user_last_tour'] ): ?>
                         <input type="checkbox" id="check_id" name="checkbox_tour" value="<?= $S_TOUR ?>">Ввод результатов для тура #<?= $S_TOUR?> завершен<br>
+						<? elseif ( !$all_entered ): ?>
+						<b>Не все результаты для тура № <?= $S_TOUR?> введены</b><br>
                         <? endif; ?>
                      <input type="button" value="Save" onclick="SaveForm();">
                     <?endif;?>
-
 
 				</div>
 			</div>

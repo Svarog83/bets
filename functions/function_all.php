@@ -357,8 +357,12 @@ function end_cache( $file_name )
 	
 	return true;
 }
-
-function CalculatePoints()
+/**
+ * @param  $real_result - real result
+ * @param  $forecast - forecase of result by
+ * @return int - number of points
+ */
+function CalculatePoints( $real_result, $forecast )
 {
     $points = 0 ;
     $real_result = explode( '-' , $real_result ) ;
