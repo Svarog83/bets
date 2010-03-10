@@ -85,7 +85,7 @@ function SaveForm()
 						<? if ( $user_authorized ): ?>
 							<td>
                                 <input type="text" size="4" <?= $row['readonly'] ? 'readonly title="' . $row['readonly'] . '" style="background-color: #C0C0C0;"' : '' ?> name="match_result[<?= $row['g_id']?>]" value="<?= isset ( $MatchResults[$row['g_id']] ) ? $MatchResults[$row['g_id']] : '' ?>">
-                                <a class="tips" href="/match_bets/<?= $row['g_id'] ?>/?ajax_flag=1" rel="/match_bets/<?= $row['g_id'] ?>/?ajax_flag=1">?</a>
+                                <a class="tips" href="/match_bets/<?= $row['g_id'] ?>/?ajax_flag=1" rel="/match_bets/<?= $row['g_id'] ?>/?ajax_flag=1" title="<?= $TeamsArr[$row['g_team1']] . '-' .  $TeamsArr[$row['g_team2']] ?>">?</a>
                             </td>
 						<?endif;?>
 

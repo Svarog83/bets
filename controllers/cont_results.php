@@ -4,10 +4,10 @@ if ( !checkRights ( array ( 'user' ) ) ) redirect( '/no_admission/' );
 $TeamsArr = getTeams();
 
 $PlayersArr = array();
-$query = "SELECT user_id, user_name, user_fam, user_last_tour FROM user WHERE user_state = 'a'";
+$query = "SELECT user_id, user_name, user_fam, user_last_tour FROM user WHERE user_state = 'a' ORDER BY user_name";
 $result = mysql_query( $query ) or eu( __FILE__, __LINE__, $query );
 while ( $row = mysql_fetch_array( $result, MYSQL_ASSOC ) )
-	$PlayersArr[$row['user_id']] = array ( 'name' => $row['user_name'] . ' ' . $row['user_fam'], 'tour' => $row['user_last_tour'] );
+	$PlayersArr[$row['user_id']] = array ( 'name' => $row['user_name'], 'tour' => $row['user_last_tour'] );
 
 $colspan = 3 + count ( $PlayersArr );
 
