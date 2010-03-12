@@ -12,7 +12,10 @@ while ( $row = mysql_fetch_array( $result, MYSQL_ASSOC ) )
 $colspan = 3 + count ( $PlayersArr );
 
 $MatchesArr = array();
-$query = "SELECT * FROM game WHERE g_result != '' ORDER BY g_tour, g_date_time, g_id";
+if ( !isset ( $to_excel ) )
+	$query = "SELECT * FROM game WHERE g_result != '' ORDER BY g_tour, g_date_time, g_id";
+else
+	$query = "SELECT * FROM game WHERE g_tour <= '" . $UA['user_last_tour'] . "' ORDER BY g_tour, g_date_time, g_id";
 $result = mysql_query( $query ) or eu( __FILE__, __LINE__, $query );
 
 $arr_t = array();
@@ -40,7 +43,7 @@ while ( $row = mysql_fetch_array( $result, MYSQL_ASSOC ) )
 {
 	$real_result	= $MatchesArr[$row['mr_game']]['g_result'];
 	$g_tour 		= $MatchesArr[$row['mr_game']]['g_tour'];
-	$points 		= CalculatePoints( $real_result, $row['mr_result'] );
+	$points 		= $real_result && $row['mr_result'] ? CalculatePoints( $real_result, $row['mr_result'] ) : 0;
 
 	if ( !isset ( $sum_tour[$g_tour][$row['mr_user']] ) )
 		$sum_tour[$g_tour][$row['mr_user']] = 0;

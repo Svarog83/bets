@@ -25,7 +25,7 @@
 							<? foreach ( $PlayersArr AS $user_id => $v ): ?>
 								<td><?= $v['name']?></td>
 							<? endforeach; ?>
-				</tr>
+						</tr>
 
 					<? if ( !count( $MatchesArr ) ):?>
 						<tr>

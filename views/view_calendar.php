@@ -26,9 +26,15 @@ function SaveForm()
         document.form2.submit();
 }
 
+function GetExcel()
+{ 
+	get_excel.location.href = '/get_excel/?ajax_flag=1';
+}
 
 //-->
 </script>
+
+<iframe name="get_excel" style="display:none;" height="100"></iframe>
 <!-- end header -->
 <div id="wrapper">
 	<!-- start page -->
@@ -46,7 +52,7 @@ function SaveForm()
 				<h1 class="title">Календарь</h1>
 
 				<div class="entry">
-
+				<span align="right"><input type="button" name="get_excel" value="Скачать в Excel" onClick="GetExcel();"></span>
 					<table cellpadding="2" cellspacing="2" border="1" width="100%">
 						<tr>
 							<td>No</td>
