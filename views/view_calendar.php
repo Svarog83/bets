@@ -11,7 +11,7 @@ $(document).ready(function() {
 </script>
 <link rel="stylesheet" href="/css/jquery.cluetip.css" type="text/css" />
 
-<script language="JavaScript">
+<script language="JavaScript" type="text/javascript">
 <!--
 function SaveForm()
 {
@@ -89,7 +89,7 @@ function GetExcel()
 							<td style="white-space:nowrap;"><?= $row['g_date_time']?></td>
 							<td>&nbsp;<?= $row['g_result']?></td>
 						<? if ( $user_authorized ): ?>
-							<td>
+							<td style="white-space:nowrap;">
                                 <input type="text" size="4" <?= $row['readonly'] ? 'readonly title="' . $row['readonly'] . '" style="background-color: #C0C0C0;"' : '' ?> name="match_result[<?= $row['g_id']?>]" value="<?= isset ( $MatchResults[$row['g_id']] ) ? $MatchResults[$row['g_id']] : '' ?>">
                                 <a class="tips" href="/match_bets/<?= $row['g_id'] ?>/?ajax_flag=1" rel="/match_bets/<?= $row['g_id'] ?>/?ajax_flag=1" title="<?= $TeamsArr[$row['g_team1']] . '-' .  $TeamsArr[$row['g_team2']] ?>">?</a>
                             </td>

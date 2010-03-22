@@ -32,31 +32,43 @@
 							<td colspan="<?= $colspan?>">Матчей не найдено</td>
 						</tr>
 					<? else : ?>
-					<? $old_tour = 0; ?>
-					<? foreach ( $MatchesArr AS $g_id =>$row ): ?>
-					<? if ( $old_tour != $row['g_tour'] ):?>
-						<tr>
-							<td colspan="<?= $colspan?>" style="font-weight:bold;">Тур <?php echo $row['g_tour']; ?></td>
-						</tr>
-					<? $old_tour = $row['g_tour']; ?>
-					<? endif; ?>
-
-					<? $i++ ?>
-						<tr>
-							<td><?= $i?></td>
-							<td><?= $TeamsArr[$row['g_team1']] . '-' . $TeamsArr[$row['g_team2']] ?></td>
-							<td>&nbsp;<?= $row['g_result']?></td>
-							<? foreach ( $PlayersArr AS $user_id => $v ): ?>
-							<td><?= isset ( $ResultsArr[$g_id][$user_id] ) ? '<b>' . $ResultsArr[$g_id][$user_id]['points'] . '</b>' . ' (' . $ResultsArr[$g_id][$user_id]['result'] . ')' : '0' ?></td>
+					<? foreach ( $MatchesArr AS $g_tour =>$v ): ?>
+                        <tr>
+                            <td colspan="<?= $colspan?>" style="font-weight:bold;">Тур <?php echo $g_tour; ?></td>
+                        </tr>
+					    <? foreach ( $v AS $g_id => $row ): ?>
+                        <? $i++ ?>
+                            <tr>
+                                <td><?= $i?></td>
+                                <td><?= $TeamsArr[$row['g_team1']] . '-' . $TeamsArr[$row['g_team2']] ?></td>
+                                <td>&nbsp;<?= $row['g_result']?></td>
+                                <? foreach ( $PlayersArr AS $user_id => $v ): ?>
+                                <td style="white-space:nowrap;"><?= isset ( $ResultsArr[$g_id][$user_id] ) ? '<b>' . $ResultsArr[$g_id][$user_id]['points'] . '</b>' . ' (' . $ResultsArr[$g_id][$user_id]['result'] . ')' : '0' ?></td>
+                                <? endforeach; ?>
+                            </tr>
+                             <? endforeach; ?>
+                             <tr>
+                                <td colspan="3" style="font-weight:bold;">Результаты Тура <?= $g_tour?>:</td>
+                                <? foreach ( $PlayersArr AS $user_id => $v ): ?>
+                                <td><?= isset ( $sum_tour[$g_tour][$user_id] ) ? '<b>' . $sum_tour[$g_tour][$user_id] . '</b>' : '0' ?></td>
+							 <? endforeach; ?>
+						     </tr>
+						     <? if ( $g_tour % $setup_beer_tours == 0 ): ?>
+						     <? $j = ceil ( $g_tour / $setup_beer_tours ) ?>
+						        <tr>
+                                <td colspan="3" style="font-weight:bold; font-size:16px;">После <?= $setup_beer_tours?>-х туров:</td>
+                                <? foreach ( $PlayersArr AS $user_id => $v ): ?>
+                                <td <?= $sum_for_beer[$j][$user_id] == max( $sum_for_beer[$j] ) ? 'style="color:red;"' : '' ?>><?= isset ( $sum_for_beer[$j][$user_id] ) ? '<b>' . $sum_for_beer[$j][$user_id] . '</b>' : '0' ?></td>
+							 <? endforeach; ?>
+						     </tr>
+						     <? endif; ?>
+                        <? endforeach; ?>
+                            <tr>
+                                <td colspan="3" style="font-weight:bold; font-size: 18px;">TOTAL:</td>
+                                <? foreach ( $PlayersArr AS $user_id => $v ): ?>
+                                <td <?= $sum_total[$user_id] == max( $sum_total ) ? 'style="color:red;"' : '' ?>><?= isset ( $sum_total[$user_id] ) ? '<b>' . $sum_total[$user_id] . '</b>' : '0' ?></td>
 							<? endforeach; ?>
-						</tr>
-					<? endforeach; ?>
-						<tr>
-							<td colspan="3" style="font-weight:bold;">TOTAL:</td>
-							<? foreach ( $PlayersArr AS $user_id => $v ): ?>
-							<td><?= isset ( $sum_total[$user_id] ) ? '<b>' . $sum_total[$user_id] . '</b>' : '0' ?></td>
-							<? endforeach; ?>
-						</tr>
+						    </tr>
 				<? endif; ?>
 
 					</table>
@@ -64,8 +76,6 @@
 
 				</div>
 			</div>
-
-			</form>
 		</div>
 		<!-- end content -->
 

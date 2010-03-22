@@ -1,5 +1,6 @@
 <?
-if ( !checkRights ( array ( 'user' ) ) ) redirect( '/no_admission/' );
+if ( isset ( $to_excel ) && !checkRights ( array ( 'user' ) ) ) redirect( '/no_admission/' );
+
 //TODO Кеширование. Хранить сумму очков по турам, каждый раз не считать.
 $TeamsArr = getTeams();
 
@@ -18,14 +19,16 @@ else
 	$query = "SELECT * FROM game WHERE g_tour <= '" . $UA['user_last_tour'] . "' ORDER BY g_tour, g_date_time, g_id";
 $result = mysql_query( $query ) or eu( __FILE__, __LINE__, $query );
 
-$arr_t = array();
+$arr_t = $AllTours = array();
 while ( $row = mysql_fetch_array( $result, MYSQL_ASSOC ) )
 {
-	$MatchesArr[$row['g_id']] = $row;
+	$MatchesArr[$row['g_tour']][$row['g_id']] = $row;
+    $AllTours[$row['g_id']] = $row['g_tour'];
 	$arr_t[] = $row['g_id'];
 }
 
-$sum_tour = $sum_total = array();
+$sum_tour = $sum_total = $sum_for_beer = array();
+$i = 1;
 $ResultsArr = array();
 $query = "
 	SELECT
@@ -41,9 +44,15 @@ mr_activ = 'a'
 $result = mysql_query( $query ) or eu( __FILE__, __LINE__, $query );
 while ( $row = mysql_fetch_array( $result, MYSQL_ASSOC ) )
 {
-	$real_result	= $MatchesArr[$row['mr_game']]['g_result'];
-	$g_tour 		= $MatchesArr[$row['mr_game']]['g_tour'];
+	$g_tour 		= $AllTours[$row['mr_game']];
+    $real_result	= $MatchesArr[$g_tour][$row['mr_game']]['g_result'];
 	$points 		= $real_result && $row['mr_result'] ? CalculatePoints( $real_result, $row['mr_result'] ) : 0;
+
+
+    $i = ceil ( $g_tour / $setup_beer_tours );
+
+    if ( !isset ( $sum_for_beer[$i][$row['mr_user']] ) )
+		$sum_for_beer[$i][$row['mr_user']] = 0;
 
 	if ( !isset ( $sum_tour[$g_tour][$row['mr_user']] ) )
 		$sum_tour[$g_tour][$row['mr_user']] = 0;
@@ -53,6 +62,7 @@ while ( $row = mysql_fetch_array( $result, MYSQL_ASSOC ) )
 
 	$sum_tour[$g_tour][$row['mr_user']] += $points;
 	$sum_total[$row['mr_user']] += $points;
+    $sum_for_beer[$i][$row['mr_user']] += $points;
 
 	$ResultsArr[$row['mr_game']][$row['mr_user']] = array ( 
 							'result' => $row['mr_result'],
