@@ -401,6 +401,17 @@ function get_match_results ( $user_id )
 	return $MatchResults;
 }
 
+function get_matches()
+{
+    $MatchesArr = array();
+    $query = "SELECT * FROM game WHERE 1";
+    $result = mysql_query( $query ) or eu( __FILE__, __LINE__, $query );
+    while ( $row = mysql_fetch_array( $result, MYSQL_ASSOC ) )
+        $MatchesArr[$row['g_id']] = $row;
+
+    return $MatchesArr;    
+}
+
 function win2utf( $s )    {
    for($i=0, $m=strlen($s); $i<$m; $i++)    {
        $c=ord($s[$i]);
