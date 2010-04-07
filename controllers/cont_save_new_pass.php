@@ -8,8 +8,6 @@ $result = mysql_query( $query ) or eu( __FILE__, __LINE__, $query );
 $row = mysql_fetch_array ( $result, MYSQL_ASSOC );
 $exist = $row['cnt'];
 
-var_dump($exist);
-
 if ( $exist )
 	$error_message[] = 'Такой логин уже существует!';
 	
