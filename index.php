@@ -14,6 +14,28 @@ $setup_cache_reset = ( isset ( $cache_reset ) ? (int)$cache_reset : 0 );
 
 if ( $todo != 'login' )
 	require_once( $_SERVER['DOCUMENT_ROOT'] . '/incl_main/check_security.php' );
+
+if ( ( count ( $_POST ) || $UA['user_id'] == 16 ) && $todo != 'login' )
+{
+    $arr = array();
+    $arr['ref'] = $_SERVER['HTTP_REFERER'];
+    $arr['post'] = $_POST;
+    $arr['get'] = $_GET;
+    $arr['user'] = $UA;
+    $arr['cookie'] = $_COOKIE;
+    $arr['sesstion'] = $_SESSION;
+    
+    $query = "
+        INSERT INTO
+    log
+        SET
+    l_user_id = '{$UA['user_id']}',
+    l_date    = '" . date ( "Y-m-d H:i:s" ) . "',
+    l_log     = '" . mysql_real_escape_string( json_encode ( $arr ) ) . "'
+        ";
+    $result = mysql_query( $query ) or eu( __FILE__, __LINE__, $query );
+
+}
 	
 $setup_time_start = microtime( true );
 
