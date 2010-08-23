@@ -1,5 +1,5 @@
 <? $component_name = 'navigation'; include( 'include_component.php' ); ?>
-<? // TODO  Выводить сумму за тур строкой после всех матчей тура ?>
+<? $i = 1; ?>
 <!-- end header -->
 <div id="wrapper">
 	<!-- start page -->
