@@ -1,5 +1,5 @@
 <? $component_name = 'navigation'; include( 'include_component.php' ); ?>
-<? $i = 1; ?>
+<? $i = 0; ?>
 <!-- end header -->
 <div id="wrapper">
 	<!-- start page -->
