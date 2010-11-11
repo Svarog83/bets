@@ -6,6 +6,12 @@ require_once( $_SERVER['DOCUMENT_ROOT'] . '/incl_main/config_main.php' );
 if ( $todo != 'login' && $todo != 'not_login' )
 	require_once( $_SERVER['DOCUMENT_ROOT'] . '/incl_main/check_security.php' );
 
+if ( $user_authorized && $UA['user_role'] != 'adm' )
+{
+    echo '<h3>Хакер недоделанный, пшел нах. И чего тебе неймется:)?</h3>';
+    exit();
+}
+
 $dir_views = './views/';
 $dir_controllers = './controllers/';
 
