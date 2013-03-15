@@ -44,11 +44,6 @@ $setup_time_start = microtime( true );
 else if ( !$todo && $user_authorized )
 	$todo = 'list_users';*/
 
-
-/*?>$_REQUEST<pre><?= print_r ( $_REQUEST ) ?></pre><?
-exit();*/
-
-
 $dir_views = './views/';
 $dir_controllers = './controllers/';
 
