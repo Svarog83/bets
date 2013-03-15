@@ -62,7 +62,6 @@ $ajax_flag = isset( $ajax_flag ) ? true : false;
 if ( !$ajax_flag )
     require_once( 'header.php' );
 
-//for debugging
 if ( $local_server && !$ajax_flag )
     require_once( $_SERVER['DOCUMENT_ROOT'] . '/incl_main/dBug.php' );  
     
